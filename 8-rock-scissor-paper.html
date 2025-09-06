@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Inter';
+      text-align: center;
+      color: white;
+    }
+    h1{
+      margin: 0;
+    }
+    .wrapper{
+      margin-top: 150px;
+      padding: 30px 60px;
+      border-radius: 12px;
+      background-color: #547eb1;
+      font-weight: 700;
+      display: flex;
+      flex-direction: column;
+      row-gap: 30px;
+
+      button{
+        color: white;
+        background-color: #00b4c8;
+        border: none;
+        border-radius: 6px;
+        padding: 6px;
+        display: inline-block;
+
+        &:hover{
+          background-color: #0094a4;
+        }
+        &:active{
+          background-color: #01636e;
+        }
+      }
+    }
+  </style>
+</head>
+<body>
+
+
+  <div class="wrapper">
+    <h1>Rock paper scissor</h1>
+    <div class="btns">
+      <button onclick="
+        play('Scissor')
+      ">scissor</button>
+
+      <button onclick="
+        play('Rock')
+      ">rock</button>
+
+      <button onclick="
+        play('Paper')
+      ">Paper</button>
+
+    </div>
+    <button onclick="
+      score.wins = 0;
+      score.loses = 0;
+      score.tie = 0;
+      localStorage.removeItem('score')
+      console.log(score)
+    ">Reset score</button>
+
+  </div>
+
+
+  
+
+  <script>  
+    let myChoose;
+    let computer;
+    let result;
+    let randNumber;
+
+    savedData = localStorage.getItem(`score`);
+
+    let score =  JSON.parse(savedData) || {
+      wins: 0,
+      loses: 0,
+      tie: 0
+    }
+
+    
+
+    function lose(){
+      score.loses += 1;
+      result = 'You lose';
+    }
+
+    function win(){
+      score.wins += 1;
+      result = 'You won';
+    }
+
+    function play(playerChoose){
+      randNumber = Math.random();
+      myChoose = playerChoose;
+      computer = getComputerChoice(randNumber);
+
+      if (myChoose === computer){
+        score.tie += 1;
+        result = 'Tie';
+      } else if (myChoose === 'Scissor') {
+        if (computer === 'Rock') {
+          lose();
+        } else {
+          win()
+        }
+      } else if (myChoose === 'Rock') {
+        if (computer === 'Paper') {
+          lose();
+        } else {
+          win()
+        }
+      } else if (myChoose === 'Paper'){
+        if (computer === 'Rock') {
+          lose();
+        } else {
+          win()
+        }
+      }
+      localStorage.setItem(`score`, JSON.stringify(score));
+      
+      
+      alert(`You chose ${myChoose}. Computer choose ${computer}. ${result}!  wins: ${score.wins} loses: ${score.loses} tie: ${score.tie}`)
+
+    }
+
+    /*function saveData(){
+      return localStorage.setItem(`score`, JSON.stringify(score));
+    }*/
+
+    function getComputerChoice(randNumber) {
+      if (randNumber > 0 && randNumber < 1/3) {
+        return 'Rock';
+      } else if (randNumber < 2/3) {
+        return 'Paper';
+      } else {
+        return 'Scissor';
+      }
+    }
+
+  </script>
+  
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>object exercises</title>
+</head>
+<body>
+  <button onclick="
+      console.log(coinFlip())
+    ">Flip</button>
+
+    <button onclick="
+      guess = 'tails';
+    ">tails</button>
+    <button onclick="
+      guess = 'heads';
+    ">heads</button>
+  
+  <script>
+    let guess;
+    let score = JSON.parse(localStorage.getItem('score')) || {
+      win: 0,
+      lose: 0
+    }
+
+    
+
+
+    const product1 = {
+      name: 'basketball',
+      price: 2095,
+      ['delivery-time']: '3 days'
+    }
+
+    let product2 = {
+      name: 'basketball',
+      price: 2095,
+      ['delivery-time']: '3 days'
+    }
+    product2.price = 3053;
+
+    const minNum = Math.min(product1.price, product2.price);
+    console.log(minNum)
+
+
+    function playScore(guess, result){
+      if(guess === result){
+        score.win += 1;
+        alert(`You win! 
+        wins: ${score.win}  loses: ${score.lose}`);
+      } else {
+        score.lose += 1;
+        alert(`You Suck!
+          wins: ${score.win}  loses: ${score.lose}`
+        );
+      }
+      localStorage.setItem('score', JSON.stringify(score));
+    }
+
+    function coinFlip(){
+      let result;
+      let coin = Math.random();
+      let side = '';
+
+      /*if (coin > 0.5) {
+        return 'tails';
+      } else {
+        return 'heads';
+      }*/
+      
+      result = coin > 0.5 ? 'tails' : 'heads';
+
+      if (guess){
+        playScore(guess, result);
+      }
+      return result;
+    }
+  </script>
+</body>
+</html>
