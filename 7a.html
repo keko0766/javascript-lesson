@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    function convertLength(length, from, to){
+      let result;
+      if (from === 'km'){
+        result = to === 'miles' ? length / 1.6 + ' miles': length + ' km';
+      } else if (from == 'miles'){
+        result = to === 'miles' ? length + ' miles' : length * 1.6 + ' km';
+      } else {
+        result = `invalid unit: ${from}`
+      }
+      return result;
+    }
+
+    console.log(convertLength(13, 'miles', 'km'))
+  </script>
+</body>
+</html>

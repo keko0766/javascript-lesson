@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <button onclick="
+      console.log(coinFlip());
+
+      //console.log(false ? 'is true' : 'is false')
+      
+    ">Flip</button>
+  <script>
+    
+    function dayTime(){
+      let hour = Math.floor(Math.random() * 23 + 1);
+      
+  
+  
+      if (hour >= 6 && hour <= 12){
+        document.body.innerHTML = `<h1>Good morning ${hour}:00</h1>`;
+      } else if (hour > 12 && hour <= 17) {
+        document.body.innerHTML = `<h1>Good afternoon ${hour}:00</h1>`;
+      } else {
+        document.body.innerHTML = `<h1>Pashol nahui ${hour}:00</h1>`;
+      }
+    }
+
+
+
+    function coinFlip(){
+
+      let coin = Math.random();
+      let side = '';
+
+      /*if (coin > 0.5) {
+        return 'tails';
+      } else {
+        return 'heads';
+      }*/
+      
+      return coin > 0.5 ? 'tails' : 'heads';
+
+    }
+
+    function taxValue(cost, tax = 10){
+      return cost * tax / 100;
+    }
+
+    console.log(taxValue(1000, 50))
+
+
+
+  </script>
+</body>
+</html>

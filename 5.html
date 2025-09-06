@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+  <p>Rock paper scissor</p>
+  <button onclick="
+    play('Scissor')
+  ">scissor</button>
+
+  <button onclick="
+    play('Rock')
+  ">rock</button>
+
+  <button onclick="
+    play('Paper')
+   ">Paper</button>
+
+
+  
+
+  <script>  
+    let myChoose;
+    let computer;
+    let result;
+    let randNumber;
+
+    function play(playerChoose){
+      randNumber = Math.random();
+      myChoose = playerChoose;
+      computer = getComputerChoice(randNumber);
+      console.log(computer)
+
+      if (myChoose === computer){
+        result = 'Tie';
+      } else if (myChoose === 'Scissor') {
+        if (computer === 'Rock') {
+          result = 'You lose';
+        } else {
+          result = 'You won';
+        }
+      } else if (myChoose === 'Rock') {
+        if (computer === 'Paper') {
+          result = 'You lose';
+        } else {
+          result = 'You won';
+        }
+      } else if (myChoose === 'Paper'){
+        if (computer === 'Rock') {
+          result = 'You lose';
+        } else {
+          result = 'You won';
+        }
+      }
+      
+      
+      
+
+      alert(`You choosed ${myChoose}. Computer choose ${computer}. ${result}!`)
+
+
+    }
+
+    function getComputerChoice(randNumber) {
+      if (randNumber > 0 && randNumber < 1/3) {
+        return 'Rock';
+      } else if (randNumber < 2/3) {
+        return 'Paper';
+      } else {
+        return 'Scissor';
+      }
+    }
+
+  </script>
+  
+</body>
+</html>
