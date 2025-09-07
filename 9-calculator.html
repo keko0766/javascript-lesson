@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>calculator</title>
+  <link rel="stylesheet" href="9-calculator.css">
+  
+</head>
+<body>
+  <div class="wrapper">
+    <p class="calculation">Calculate</p>
+    <div class="btn-wrapper">
+      <button 
+        data-js-num1 
+        class="button"
+        onclick="
+          updateText('1')
+        "
+        >1</button>
+      <button 
+        data-js-num2 
+        class="button"
+        onclick="
+          updateText('2')
+        "
+        >2</button>
+      <button 
+      data-js-num3 
+      class="button"
+        onclick="
+          updateText(3)
+        "
+      >3</button>
+      <button 
+      data-js-plus 
+      class="button accent"
+        onclick="
+          updateText('+')
+        "
+      >+</button>
+      <button 
+      data-js-num4 
+      class="button"
+        onclick="
+          updateText(4)
+        "
+      >4</button>
+      <button 
+      data-js-num5 
+      class="button"
+        onclick="
+          updateText(5)
+        "
+      >5</button>
+      <button 
+      data-js-num6 
+      class="button"
+        onclick="
+          updateText(6)
+        "
+      >6</button>
+      <button 
+      data-js-minus 
+      class="button accent"
+        onclick="
+          updateText('-')
+        "
+      >-</button>
+      <button 
+      data-js-num 
+      class="button"
+        onclick="
+          updateText(7)
+        "
+      >7</button>
+      <button 
+      data-js-num 
+      class="button"
+        onclick="
+          updateText(8)
+        "
+      >8</button>
+      <button 
+      data-js-num 
+      class="button"
+        onclick="
+          updateText(9)
+        "
+      >9</button>
+      <button 
+      data-js-num 
+      class="button accent"
+        onclick="
+          updateText('*')
+        "
+      >*</button>
+      <button 
+      data-js-num 
+      class="button"
+        onclick="
+          updateText(0)
+        "
+      >0</button>
+      <button 
+      data-js-num 
+      class="button"
+        onclick="
+          updateText('.')
+        "
+      >.</button>
+      <button 
+      data-js-num 
+      class="button"
+        onclick="
+          // updateText('=')
+          calculate();
+        "
+      >=</button>
+      <button 
+      data-js-num 
+      class="button accent"
+        onclick="
+          updateText('/')
+        "
+      >/</button>
+      <button 
+      data-js-num 
+      class="button"
+        onclick="
+          handleClear();
+        "
+      >clear</button>
+
+    </div>
+  </div>
+
+
+  <script>
+    const textElem = document.querySelector('.calculation');
+
+    let calculation = '';
+
+    function updateText(value){
+      calculation += value;
+      textElem.innerHTML = calculation;
+      console.log(calculation)
+    }
+
+    function handleClear(){
+      textElem.innerHTML = '';
+      calculation = '';
+      console.log('Clear');
+    }
+
+    function calculate(){
+      
+      calculation = eval(calculation).toString();
+      textElem.innerHTML = calculation;
+     
+    }
+    
+    
+
+  </script>
+</body>
+</html>

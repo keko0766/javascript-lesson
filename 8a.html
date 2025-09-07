@@ -7,15 +7,20 @@
 </head>
 <body>
   <button onclick="
-      console.log(coinFlip())
+      console.log(coinFlip());
     ">Flip</button>
 
     <button onclick="
       guess = 'tails';
+      yourGuess(guess);
     ">tails</button>
     <button onclick="
       guess = 'heads';
+      yourGuess(guess);
     ">heads</button>
+    <p class="js-choose"></p>
+
+    <p class="js-score"></p>
   
   <script>
     let guess;
@@ -24,10 +29,14 @@
       lose: 0
     }
 
+    function yourGuess(guess){
+      document.querySelector('.js-choose').innerHTML = `Your guess is ${guess}`;
+    }
+
     
 
 
-    const product1 = {
+    /*const product1 = {
       name: 'basketball',
       price: 2095,
       ['delivery-time']: '3 days'
@@ -42,18 +51,21 @@
 
     const minNum = Math.min(product1.price, product2.price);
     console.log(minNum)
+*/
 
+    function updateScore(win){
+      const scoreElement = document.querySelector('.js-score');
+      scoreElement.innerHTML = `You ${win}! 
+        wins: ${score.win}  loses: ${score.lose}`;
+    }
 
     function playScore(guess, result){
       if(guess === result){
         score.win += 1;
-        alert(`You win! 
-        wins: ${score.win}  loses: ${score.lose}`);
+        updateScore('win');
       } else {
         score.lose += 1;
-        alert(`You Suck!
-          wins: ${score.win}  loses: ${score.lose}`
-        );
+        updateScore('Suck');
       }
       localStorage.setItem('score', JSON.stringify(score));
     }

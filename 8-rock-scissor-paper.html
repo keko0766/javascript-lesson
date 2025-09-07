@@ -6,12 +6,14 @@
   <title>Document</title>
   <style>
     body{
+      box-sizing: border-box;
       display: flex;
       justify-content: center;
       align-items: center;
-      font-family: 'Inter';
+      font-family: 'Roboto', monospace;
       text-align: center;
       color: white;
+      background-color: #161616;
     }
     h1{
       margin: 0;
@@ -20,25 +22,41 @@
       margin-top: 150px;
       padding: 30px 60px;
       border-radius: 12px;
-      background-color: #547eb1;
+      background-color: #272727;
       font-weight: 700;
-      display: flex;
-      flex-direction: column;
-      row-gap: 30px;
+
+      .turn{
+        font-size: 96px;
+        background-color: #2b2b2b;
+        border: 0cap solid rgb(6, 6, 6);
+        border-radius: 50%;
+        padding: 30px 45px;
+        transition: all 0.1s ease-in-out;
+        display: inline-block;
+        &:hover{
+          background-color: #212121;
+          border: 1px solid rgb(15, 15, 15);
+          box-shadow: 0px 0px 10px rgba(0,0,0,0.3);
+        }
+        &:active{
+          background-color: #1b1b1b;
+        }
+      }
 
       button{
         color: white;
-        background-color: #00b4c8;
+        background-color: #3a3a3a;
         border: none;
         border-radius: 6px;
-        padding: 6px;
+        margin-block: 5px;
+        padding: 8px 12px;
         display: inline-block;
 
         &:hover{
-          background-color: #0094a4;
+          background-color: #212121;
         }
         &:active{
-          background-color: #01636e;
+          background-color: #1b1b1b;
         }
       }
     }
@@ -50,26 +68,39 @@
   <div class="wrapper">
     <h1>Rock paper scissor</h1>
     <div class="btns">
-      <button onclick="
+      <button class="turn" onclick="
         play('Scissor')
-      ">scissor</button>
+        updateScore();
+      ">✌️</button>
 
-      <button onclick="
-        play('Rock')
-      ">rock</button>
+      <button class="turn" onclick="
+        play('Rock');
+        updateScore();
+      ">✊</button>
 
-      <button onclick="
-        play('Paper')
-      ">Paper</button>
+      <button class="turn" onclick="
+        play('Paper');
+        updateScore();
+      ">🫲</button>
 
     </div>
     <button onclick="
       score.wins = 0;
       score.loses = 0;
       score.tie = 0;
-      localStorage.removeItem('score')
-      console.log(score)
+
+      chooseElement.innerText = null;
+      winLoseElement.innerText = null;
+      
+      localStorage.removeItem('score');
+      updateScore();
+
+      console.log(score);
     ">Reset score</button>
+
+    <p class="js-score"></p>
+    <p class="js-win"></p>
+    <p class="js-choose"></p>
 
   </div>
 
@@ -81,6 +112,11 @@
     let computer;
     let result;
     let randNumber;
+    const chooseElement = document.querySelector(['.js-choose']);
+    const scoreElement = document.querySelector(['.js-score']);
+    const winLoseElement = document.querySelector(['.js-win']);
+
+    let moveIcon;
 
     savedData = localStorage.getItem(`score`);
 
@@ -89,8 +125,31 @@
       loses: 0,
       tie: 0
     }
+    
+    updateScore();
+
+    function iconFinder(move){
+      if (move === 'Scissor') {
+        return '✌️';
+      } else if (move === 'Rock') {
+        return '✊'
+      } else if (move === 'Paper') {
+        return '🫲'
+      }
+    }
 
     
+    function updateScore(){
+      scoreElement.innerText = `wins: ${score.wins} loses: ${score.loses} tie: ${score.tie}`;
+    }
+
+    function choose(){
+      chooseElement.innerText = `You  ${iconFinder(myChoose)} - ${iconFinder(computer)} Computer`;
+    }
+    
+    function winLose(){
+      winLoseElement.innerText = `${result}!`;
+    }
 
     function lose(){
       score.loses += 1;
@@ -120,20 +179,18 @@
         if (computer === 'Paper') {
           lose();
         } else {
-          win()
+          win();
         }
       } else if (myChoose === 'Paper'){
         if (computer === 'Rock') {
           lose();
         } else {
-          win()
+          win();
         }
       }
       localStorage.setItem(`score`, JSON.stringify(score));
-      
-      
-      alert(`You chose ${myChoose}. Computer choose ${computer}. ${result}!  wins: ${score.wins} loses: ${score.loses} tie: ${score.tie}`)
-
+      winLose();
+      choose();
     }
 
     /*function saveData(){

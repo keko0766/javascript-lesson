@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Name</title>
+</head>
+<body>
+  <form>
+    <input 
+      type="text"
+      class="js-input"
+      onkeydown="
+        if (event.key === 'Enter'){
+          hello();
+        }
+      "
+    >
+    <button
+      onclick="
+        hello();
+      " type="button"
+    >Hello</button>
+    <p class="js-output"></p>
+  </form>
+
+  <input placeholder="enter smth"
+  class="js-mirror-input"
+  onkeyup="
+    console.log(event.key)
+    mirror(event);
+  ">
+  <p class="js-mirror"></p>
+  
+  
+
+  <script>
+    const inputElem = document.querySelector('.js-input');
+    const outputElem = document.querySelector('.js-output');
+
+    const mirrorElem = document.querySelector('.js-mirror');
+    const mirrorInputElem = document.querySelector('.js-mirror-input');
+
+    function mirror(event){
+      mirrorElem.innerText = mirrorInputElem.value;
+      /*
+      if (event.key === 'Backspace'){
+        mirrorElem.innerText = mirrorElem.innerText.slice(0, -1);
+      }else{
+        mirrorElem.innerText += event.key;
+
+      }*/
+    }
+
+    function hello(){
+      const name = inputElem.value;
+      outputElem.innerHTML = `Hello ${name}!`
+    }
+  </script>
+</body>
+</html>
