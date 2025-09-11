@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2 messages</title>
+  <style>
+    .added{
+      opacity: 0;
+      transition: all 0.3s ease-in-out;
+      /* display: none; */
+    }
+    .show{
+      opacity: 1;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <button 
+  class="js-sec-button"
+  onclick="      
+    buttonElem.innerHTML = 'Loading...';
+    sec()
+  "
+  >enter</button>
+  <div class="">
+    <button 
+    class="js-shop-button"
+    onclick="      
+      cardButton()
+    "
+    >add to card</button>
+    <p class="added">Added</p>
+  </div>
+  <script>
+    const buttonElem = document.querySelector('.js-sec-button');
+    const buttonShopElem = document.querySelector('.js-shop-button');
+    const textShopElem = document.querySelector('.added');
+
+    let isShow = false;
+
+    function sec() {
+      setTimeout(function() {
+      buttonElem.innerHTML = '1sec past';
+    }, 1000)
+    }
+
+    function cardButton(){
+      if (!isShow){
+        isShow = true;
+        textShopElem.classList = 'added show'
+        setTimeout(function(){
+          isShow = false;
+          textShopElem.classList = 'added'
+        }, 3000)
+
+      }
+    }
+    
+
+    const add = function(){
+      console.log('2 + 3 =',2+3);
+    }
+    add();
+    function runTwice(func){
+      func();
+      func();
+      func();
+    }
+    runTwice(add);
+  </script>
+</body>
+</html>

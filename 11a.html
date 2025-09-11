@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>exercise</title>
+</head>
+<body>
+  <script>
+    const arr = ['hello','not', 'world', 'search', 'hello', 'not']
+
+    function search(arr, searchWord){
+      for(let i =0; i < arr.length; i++){
+        const word = arr[i];
+        if(word === searchWord){
+          return i
+        }
+      }
+      return -1
+    }
+    function del(arr, searchWord){
+      for(let i =0; i < arr.length; i++){
+        const word = arr[i];
+        if(word === searchWord){
+          arr.splice(i,1)
+        }
+      }
+      return arr
+    }
+
+    function fizzBuzz(count){
+      for(let i = 1; i<count; i++){
+        if (i%3===0 && i%5===0){
+          console.log('FizzBuzz')
+        }
+        if(i % 3 == 0){
+          console.log('Fizz')
+        } else if (i % 5 == 0){
+          console.log('Buzz')
+        } else {
+          console.log(i)
+        }
+      }
+    }
+
+    function unique(arr){
+      for(let i =0; i < arr.length; i++){
+        const word = arr[i]
+        for(let j =0; j < arr.length; j++){
+          if(i!=j){
+            if (word === arr[j]){
+              console.log(`${arr[j]} has copy ${arr[i]}`)
+              arr.splice(j,1)
+            }
+          }
+        }
+      }
+      return arr
+    }
+
+    unique(arr)
+    console.log(unique(arr))
+  </script>
+</body>
+</html>

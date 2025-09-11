@@ -7,37 +7,82 @@
   <style>
     body{
       font-family: Arial, Helvetica, sans-serif;
-      p{
-        text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      .title{
+        text-align: center;
+
+      }
+      .item,
+      .form{
+        max-width: 500px;
+        display: flex; 
+        min-width: 300px;
+        width: 100%;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #d5d5d5;
+      }
+      .form{
+        background-color: #ebebeb;
+        input, button{
+          padding: 15px;
+        }
+      }
+      .deleteItem{
+        width: 100%;
+        max-width: 50px;
+        aspect-ratio: 1;
+        padding: 15px;
+        border: none;
+        background-color: #dd5252;
+        span{
+          position: absolute;
+          scale: 2;
+          position-anchor: center;
+          translate: -50% -50%;
+        }
+        &:hover{
+          background-color: #bf4646;
+        }
       }
     }
   </style>
 </head>
 <body>
-  <p>todo list</p>
-  <input 
-    type="text" 
-    placeholder="Add todo" 
-    data-js-input
-    onkeydown="
-      isEnter(event);
-    "
-    >
-  <button 
-    onclick="
-      addTodo()
-    "
-  >Add</button>
+  <p class="title">todo list</p>
+  <div class="form">
+    <input 
+      type="text" 
+      placeholder="Add todo" 
+      data-js-input
+      onkeydown="
+        isEnter(event);
+      "
+      >
+    <input type="date" data-js-time>
+    <button 
+      onclick="
+        addTodo()
+      "
+    >Add</button>
+
+  </div>
 
   <div data-js-list>
-    <p>${todo} <button onclick="deleteItem(i)">🅧</button></p>
   </div>
+  
+
 
   <script>
     const inputElem = document.querySelector('[data-js-input]');
     const listElem = document.querySelector('[data-js-list]');
+    const dateElem = document.querySelector('[data-js-time]');
     const savedData = JSON.parse(localStorage.getItem('arr'));
     let todoList = savedData || [];
+    
+    let listIndex = document.querySelectorAll('.deleteItem')
     
     renderList();
 
@@ -55,26 +100,60 @@
     function renderList(){
       let listContent = '';
       for (let i = 0; i < todoList.length; i++){
-        const todo = todoList[i];
-        const itemContent = `<p>${todo} <button onclick="deleteItem(${i})">🅧</button></p>`;
+        const data = todoList[i].date;
+        const todo = todoList[i].name;
+        const itemContent = `<div class="item">
+    <p>${todo}</p>
+    <span>${data}</span> 
+    <button class="deleteItem" data-index='${i}' >
+      <span>🅧</span>
+    </button>
+  </div>`;
         listContent += itemContent;
         console.log(listContent);
       }
+      
       listElem.innerHTML = listContent;
+      listIndex = document.querySelectorAll('.deleteItem')
+      indexFinder()
 
       localStorage.setItem('arr', JSON.stringify(todoList))
-    }
-    
-    function addTodo(){
-      if (inputElem.value != ''){
-        todoList.push(inputElem.value);
-        // console.log(todoList);
-        renderList();
-        inputElem.value = '';
-        
+   }
 
+
+  
+
+   
+   
+   function addTodo(){
+     if (inputElem.value != '' && dateElem.value != ''){
+       const todoData = {name: inputElem.value, date: dateElem.value}
+       todoList.push(todoData);
+       // console.log(todoList);
+       renderList();
+       inputElem.value = '';
       }
     }
+    
+    function indexFinder(){
+      document.querySelectorAll('.deleteItem').forEach((deleteButton) => {
+        console.log(Number(deleteButton.dataset.index))
+        deleteButton.addEventListener('click', () => {
+          const index = deleteButton.dataset.index;
+          deleteItem(index);
+        });
+      });
+
+    }
+    
+    // document.querySelectorAll('.deleteItem')
+    //   .forEach((button, index) => {
+    //     button.addEventListener('click', (index) => {
+    //       console.log('wtf')
+    //       deleteItem(index)
+    //     })
+    // });
+    
 
   </script>
 </body>
